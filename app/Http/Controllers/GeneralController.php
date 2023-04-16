@@ -27,7 +27,7 @@ class GeneralController extends Controller
                 'created_at'=>Carbon::now(),
                 'updated_at'=>Carbon::now(),
             ]);
-            return ' user successfully created ';
+            // return ' user successfully created ';
 
         } catch (\Throwable $th) {
             return('there has been an issue');
