@@ -37,3 +37,4 @@ Route::post('/save-answer','App\Http\Controllers\QuizController@saveAnswer')->na
 // Route::get('/quiz-home', 'App\Http\Controllers\QuizController@index');
 // Route::post('/quiz', 'App\Http\Controllers\QuizController@submit');
 route::get('/new-homw-trial','App\Http\Controllers\QuizController@newnew');
+route::post('/quiz-submit','App\Http\Controllers\QuizController@ValidateAnswers')->name('quiz.submit');
