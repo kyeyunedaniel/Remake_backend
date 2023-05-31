@@ -10,8 +10,8 @@
         </div>
 
         <div class="mt-8 text-center">
-            <img src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
-            <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">Cynthia J. Watts</h5>
+            {{-- <img src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp" alt="" class="w-5 h-5 m-auto rounded-full object-cover lg:w-28 lg:h-28"> --}}
+            <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{{ucwords(Auth::user()->name)}}</h5>
             <span class="hidden text-gray-400 lg:block">Admin</span>
         </div>
 
@@ -70,7 +70,16 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-            <span class="group-hover:text-gray-700">Logout</span>
+            <span class="group-hover:text-gray-700">
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                                     onclick="event.preventDefault();
+                                                   document.getElementById('logout-form').submit();">
+                                      {{ __('Logout') }}
+                                  </a>
+                                  <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                      @csrf
+                                  </form>
+            </span>
         </button>
     </div>
 </aside>
@@ -117,8 +126,10 @@
 
     <div class="px-6 pt-6 2xl:container">
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+
             <div class="md:col-span-2 lg:col-span-1" >
-                <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
+                {{-- <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
                     <svg class="w-40 m-auto opacity-75" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M73.1866 5.7129C81.999 5.7129 90.725 7.44863 98.8666 10.821C107.008 14.1933 114.406 19.1363 120.637 25.3675C126.868 31.5988 131.811 38.9964 135.184 47.138C138.556 55.2796 140.292 64.0057 140.292 72.818C140.292 81.6304 138.556 90.3565 135.184 98.4981C131.811 106.64 126.868 114.037 120.637 120.269C114.406 126.5 107.008 131.443 98.8666 134.815C90.725 138.187 81.999 139.923 73.1866 139.923C64.3742 139.923 55.6481 138.187 47.5066 134.815C39.365 131.443 31.9674 126.5 25.7361 120.269C19.5048 114.037 14.5619 106.64 11.1895 98.4981C7.81717 90.3565 6.08144 81.6304 6.08144 72.818C6.08144 64.0057 7.81717 55.2796 11.1895 47.138C14.5619 38.9964 19.5048 31.5988 25.7361 25.3675C31.9674 19.1363 39.365 14.1933 47.5066 10.821C55.6481 7.44863 64.3742 5.7129 73.1866 5.7129L73.1866 5.7129Z" stroke="#e4e4f2" stroke-width="4.89873"/>
                         <path d="M73.5 23.4494C79.9414 23.4494 86.3198 24.7181 92.2709 27.1831C98.222 29.6482 103.629 33.2612 108.184 37.816C112.739 42.3707 116.352 47.778 118.817 53.7291C121.282 59.6802 122.551 66.0586 122.551 72.5C122.551 78.9414 121.282 85.3198 118.817 91.2709C116.352 97.222 112.739 102.629 108.184 107.184C103.629 111.739 98.222 115.352 92.2709 117.817C86.3198 120.282 79.9414 121.551 73.5 121.551C67.0586 121.551 60.6802 120.282 54.7291 117.817C48.778 115.352 43.3707 111.739 38.816 107.184C34.2612 102.629 30.6481 97.222 28.1831 91.2709C25.7181 85.3198 24.4494 78.9414 24.4494 72.5C24.4494 66.0586 25.7181 59.6802 28.1831 53.7291C30.6481 47.778 34.2612 42.3707 38.816 37.816C43.3707 33.2612 48.778 29.6481 54.7291 27.1831C60.6802 24.7181 67.0586 23.4494 73.5 23.4494L73.5 23.4494Z" stroke="#e4e4f2" stroke-width="4.89873"/>
@@ -153,7 +164,7 @@
                             <h3 class="text-3xl font-bold text-gray-700">$23,988</h3>
                             <div class="flex items-end gap-1 text-green-500">
                                 <svg class="w-3" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.00001 0L12 8H-3.05176e-05L6.00001 0Z" fill="currentColor"/>
+                                <path d="M6.00001 0L12 8H-3.05176e-05L6.00001 0Z" fill="currentColor"/>
                                 </svg>
                                 <span>2%</span>
                             </div>
@@ -221,10 +232,13 @@
                             </tr>
                         </tbody>
                     </table> 
-                </div>
+                </div> --}}
             </div>
+
+
+            {{-- second section --}}
             <div>
-                <div class="h-full py-6 px-6 rounded-xl border border-gray-200 bg-white">
+                {{-- <div class="h-full py-6 px-6 rounded-xl border border-gray-200 bg-white">
                     <h5 class="text-xl text-gray-700">Downloads</h5>
                     <div class="my-8">
                         <h1 class="text-5xl font-bold text-gray-800">64,5%</h1>
@@ -286,8 +300,10 @@
                             </tr>
                         </tbody>
                     </table>   
-                </div>
+                </div> --}}
             </div>
+
+            {{-- last panel at the edge --}}
             <div>
                 <div class="lg:h-full py-8 px-6 text-gray-600 rounded-xl border border-gray-200 bg-white">
                     <svg class="w-40 m-auto" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
