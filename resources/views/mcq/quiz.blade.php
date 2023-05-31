@@ -6,6 +6,8 @@
     <div class="question">
         {{-- get the question --}}
         <h2>{{ $question->question_name }}</h2>
+        <input type= "text" name = "front_end_quest_id{{$question->id}}" value="{{$question->id}}">
+        
       
 
         {{-- get the corresponding answer for the question --}}
@@ -22,7 +24,6 @@
 
 
                 <input type="radio" class= "quest" name="answer_option{{$question->id}}" value="{{$answer->id}}">
-                
                 
                 <label>{{ $answer->answer_option }}</label>
             </div>
@@ -45,6 +46,27 @@
         $('form').submit(function(event) {
             var checkedRadio = $('input[type="radio"]:checked');
             var number_of_questions = $('.question').length;
+            
+            // var names = "answer_option{{ $question->id }}"
+            // alert (names);
+            //get the number of radio option groups
+            // var groupsCount =0;
+            // var groups = [];
+            // var number_of_radio_groups =$('input[type="radio"]');
+
+            // // $number_of_radio_groups.each(function() {
+            // var groupName = $(this).attr('answer_option{{ $question->id }}');
+            // // alert('he');
+                
+            //     if (!groups.includes(groupName)) {
+            //     groups.push(groupName);
+            //     groupsCount++;
+            //     console.log(groupName);
+            //     }
+            // // });
+
+
+            // alert(groupsCount);
         
             if (checkedRadio.length !== number_of_questions) {
                 event.preventDefault(); // Prevent form submission

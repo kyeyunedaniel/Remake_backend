@@ -39,40 +39,67 @@ class QuizController extends Controller
         //get
         $questions = Question::with('answers')->get();
         $totalQuestions = $questions->count();
-        $userScore = 0;
-        
+        $userScore = 10;
+
         // dd($totalQuestions);
 
         foreach ($questions as $question) {
-            $submittedAnswers = $request->input('answer_option'.$question->id);
-            // $totalQuestions = $questions->count();
-            // $correctAnswers = $question->answers->pluck('id')->toArray();
-            $correctAnswers = $question->pluck('correct_answer_id')->toArray();
-            // dd($correctAnswers);
-
-            if (!empty($submittedAnswers) && $this->validated($submittedAnswers, $correctAnswers)) {
-                $userScore++;
-                
+            //get the submitted answer (id) from the form from the user
+            //
             
+
+            $submittedAnswers = $request->input('answer_option'.$question->id);
+            $correctAnswers = $question->correct_answer_id;
+
+
+            // if ($submittedAnswers==$correctAnswers){
+            //     $userScore++;
+                
+            // }
+            if (!empty($submittedAnswers) && $submittedAnswers==$correctAnswers) {
+                $userScore++;
+
+                // i was attempting to return all the questions answered and their correct answers
+                
+                $attempt[] =$question->question_name;
+                $attemped_correct[] = $question->correct_answer_id;
+                // dd($attemped_correct);
+                //$correct_answer_in_table = Answer::where('id','=', $attemped_correct)->pluck('answer_option')->first();
+               
+            }
+
+            else{
+                $userScore=$userScore;
+            }
         }
-        }
-        dd($userScore);
+        $data =array(
+            'attempt'=>$attempt,
+            'attemped_correct'=>$attemped_correct   
+        ); 
+        return $userScore;
+        // dd($data->$attempt);
+       
+        // foreach ($attempt as $attempt){
+        //     dd($attemped_correct);
+        //     // echo "".$attempt."</br>"."$attempted_correct";
+        // }
+        // echo ''.$attempt.'<br>'.$correct_answer_in_table;
+    }
+
+//     private function validated($submittedAnswers, $correctAnswers)
+// {
+//     // sort($submittedAnswers);
+//     // sort($correctAnswers);
+
+//     return $submittedAnswers === $correctAnswers;
+// }
     }
 
 
-    private function validated($submittedAnswers, $correctAnswers)
-{
-    // sort($submittedAnswers);
-    // sort($correctAnswers);
-// dd("we are here now");
-if($submittedAnswers==$correctAnswers){
-    
+//make a for loop
+//in that for loop first check if the question id match and if they match,continue with the logic  
+// get question using the question id
+//ge the answer using the answer id
 
-    } else 
-
-    return $submittedAnswers === $correctAnswers;
-}
-    }
-
-
-
+// check the dattabsase to see if the question given has the correct_answer_id matching that of the answer given.
+//what if the question are jambled up, then taht means we wont be able to get the right answers for each of the questions given
